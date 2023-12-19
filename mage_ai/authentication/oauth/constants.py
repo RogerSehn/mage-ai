@@ -10,6 +10,7 @@ GITHUB_STATE = '1337'
 
 class ProviderName(str, Enum):
     ACTIVE_DIRECTORY = 'active_directory'
+    AZURE_DEVOPS = 'azure_devops'
     BITBUCKET = 'bitbucket'
     GITHUB = 'github'
     GITLAB = 'gitlab'
@@ -33,11 +34,30 @@ BITBUCKET_HOST = os.getenv('BITBUCKET_HOST')
 BITBUCKET_OAUTH_KEY = os.getenv('BITBUCKET_OAUTH_KEY')
 BITBUCKET_OAUTH_SECRET = os.getenv('BITBUCKET_OAUTH_SECRET')
 
+AZURE_DEVOPS_INSTANCE = os.getenv('AZURE_DEVOPS_INSTANCE')
+
 DEFAULT_GITHUB_HOSTNAME = 'https://github.com'
 
+# Github and GHE don't need to be added to this list because they are handled
+# separately for now.
 GIT_OAUTH_PROVIDERS = [
+<<<<<<< HEAD
     ProviderName.BITBUCKET,
     ProviderName.GITLAB,
+=======
+    OAUTH_PROVIDER_AZURE_DEVOPS,
+    OAUTH_PROVIDER_BITBUCKET,
+]
+
+VALID_OAUTH_PROVIDERS = [
+    OAUTH_PROVIDER_ACTIVE_DIRECTORY,
+    OAUTH_PROVIDER_AZURE_DEVOPS,
+    OAUTH_PROVIDER_BITBUCKET,
+    OAUTH_PROVIDER_GHE,
+    OAUTH_PROVIDER_GITHUB,
+    OAUTH_PROVIDER_GOOGLE,
+    OAUTH_PROVIDER_OKTA,
+>>>>>>> 48c015e4e ([dy] Add oauth flow for azure devops)
 ]
 
 
