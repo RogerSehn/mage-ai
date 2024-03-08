@@ -66,7 +66,7 @@ class Airbyte():
         job_id = job['id']
 
         status = JOB_STATUS_PENDING
-        while status not in [JOB_STATUS_FAILED, JOB_STATUS_SUCCEEDED]:
+        while status not in [JOB_STATUS_FAILED, JOB_STATUS_SUCCEEDED, JOB_STATUS_CANCELLED]:
             job = client.get_job_status(job_id)
             status = job['status']
 
@@ -76,6 +76,10 @@ class Airbyte():
                 msg = f'Job {job_id} failed.'
                 self.logger.error(msg)
                 raise SyncJobFailed(msg)
+            elif JOB_STATUS_CANCELLED == status:
+                msg = f'Job {job_id} cancelled.'
+                self.logger.error(msg)
+                raise SyncJobFailed(msg) 
             else:
                 self.logger.info(f'Job {job_id} status: {status}.')
                 sleep(poll_interval)
